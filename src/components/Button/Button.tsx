@@ -3,7 +3,7 @@ import type { ButtonProps } from "@/types/props";
 
 import styles from "@/components/Button/Button.module.css";
 
-export const Button = ({
+const Button = ({
   variant = "primary",
   size = "md",
   children,
@@ -26,3 +26,5 @@ export const Button = ({
     </button>
   );
 };
+
+export default Button;

@@ -2,7 +2,7 @@
 export type { ButtonProps } from "@/types/props";
 
 // Components
-export { Button } from "@/components/Button/Button";
+export { default as Button } from "@/components/Button/Button";
 
 // Helpers
 export { truncate } from "@/helpers/truncate/truncate";

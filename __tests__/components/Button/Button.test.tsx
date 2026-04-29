@@ -5,7 +5,7 @@ import type { RenderResult } from "@testing-library/react";
 import type { ButtonHTMLAttributes } from "react";
 import type { ButtonProps } from "@/types/props";
 
-import { Button } from "@/components/Button/Button";
+import Button from "@/components/Button/Button";
 
 type RenderProps = Partial<ButtonProps> & Partial<ButtonHTMLAttributes<HTMLButtonElement>>;
 
