@@ -70,6 +70,7 @@ The Storybook playground will be available at `http://localhost:6006`
 "@testing-library/react": "^16.0.1"
 "@testing-library/user-event": "^14.5.2"
 "@types/jest": "^30.0.0"
+"@types/node": "^22.0.0"
 "@types/react": "^19.2.14"
 "@types/react-dom": "^19.2.3"
 "@vitejs/plugin-react": "^5.0.2"
