@@ -7,6 +7,14 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
+  viteFinal: (config) => {
+    config.server ??= {};
+    config.server.watch = {
+      usePolling: true,
+      interval: 1000,
+    };
+    return config;
+  },
 };
 
 export default config;

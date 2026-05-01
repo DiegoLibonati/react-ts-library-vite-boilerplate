@@ -48,6 +48,8 @@ The Storybook playground will be available at `http://localhost:6006`
 3. Vite
 4. HTML5
 5. CSS3
+6. Docker
+7. Nginx
 
 ## Libraries Used
 
@@ -130,6 +132,44 @@ For coverage report:
 ```bash
 npm run test:coverage
 ```
+
+## Docker
+
+Two Docker setups are included — one for local development with hot reload and one for production serving the compiled Storybook via nginx.
+
+### Development
+
+Starts the Storybook dev server inside a container with the project files mounted as a volume, so changes on the host are reflected immediately (polling-based HMR):
+
+```bash
+docker compose -f dev.docker-compose.yml up --build
+```
+
+Storybook will be available at `http://localhost:6006`
+
+### Production
+
+Builds the Storybook static site and serves it with nginx using a multi-stage Docker image:
+
+```bash
+docker compose -f prod.docker-compose.yml up --build
+```
+
+Storybook will be available at `http://localhost:6006`
+
+**What happens under the hood:**
+
+1. **Builder stage** — installs dependencies and runs `npm run build-storybook`, producing the static site in `storybook-static/`.
+2. **Runner stage** — copies the static output into an `nginx:stable-alpine` image and applies the custom nginx config.
+
+**nginx features:**
+
+- Listens on port `8080` internally (mapped to `6006` on the host).
+- Gzip compression for JS, CSS, JSON, SVG, and plain text.
+- Long-lived cache (`max-age=31536000, immutable`) for hashed static assets; no-cache for `index.html`.
+- Security headers: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`.
+- Runs as a non-root user (`appuser`).
+- Health check: `wget` hits `http://localhost:8080` every 30 seconds.
 
 ## Project Structure
 

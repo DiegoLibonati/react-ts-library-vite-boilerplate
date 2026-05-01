@@ -19,6 +19,15 @@ export default defineConfig({
     }),
     cssInjectedByJs(),
   ],
+  server: {
+    port: 6006,
+    open: false,
+    host: "0.0.0.0",
+    watch: {
+      usePolling: true,
+    },
+    strictPort: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
