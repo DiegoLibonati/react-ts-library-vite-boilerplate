@@ -6,17 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository
-2. Navigate to the project folder
-3. Execute: `npm install`
-4. Execute: `npm run storybook` to explore the example component, helper and hook
-
-The Storybook playground will be available at `http://localhost:6006`
-
-> To run the Vite dev sandbox instead: `npm run dev` → `http://localhost:5173`
-
 ## Description
 
 **React Ts Library Vite Boilerplate** is a production-ready starting point for publishing React libraries with TypeScript and Vite. It is not a UI kit or a framework — it is the foundation you clone once and stop rebuilding from scratch every time you want to ship a reusable hook, component, or utility to npm.
@@ -37,7 +26,7 @@ The Storybook playground will be available at `http://localhost:6006`
 
 **How to use it:**
 
-1. Clone the repository and install dependencies.
+1. Clone the repository and install dependencies (see [Getting Started](#getting-started)).
 2. Rename the library in `package.json` (`name`, `main`, `module`) and in `vite.config.js` (`LIB_NAME`).
 3. Replace the example `Button`, `truncate`, and `useToggle` with your own exports — the folder structure, build pipeline, type conventions, and tooling stay exactly as they are.
 
@@ -97,81 +86,72 @@ The Storybook playground will be available at `http://localhost:6006`
 "vite-plugin-dts": "^4.0.0"
 ```
 
-## Available Scripts
+## Getting Started
 
-| Command                   | Description                      |
-| ------------------------- | -------------------------------- |
-| `npm run dev`             | Start Vite dev sandbox           |
-| `npm run build`           | Build library (JS + types)       |
-| `npm run preview`         | Preview production build         |
-| `npm run storybook`       | Start Storybook dev server       |
-| `npm run build-storybook` | Build Storybook static site      |
-| `npm run test`            | Run tests                        |
-| `npm run test:watch`      | Run tests in watch mode          |
-| `npm run test:ci`         | Run tests in CI mode             |
-| `npm run test:coverage`   | Run tests with coverage          |
-| `npm run lint`            | Check for linting errors         |
-| `npm run lint:fix`        | Fix linting errors               |
-| `npm run lint:all`        | Fix linting errors (src + tests) |
-| `npm run format`          | Format code with Prettier        |
-| `npm run format:check`    | Check code formatting            |
-| `npm run format:all`      | Format code (src + tests)        |
-| `npm run doctor`          | Run React Doctor health check    |
+With the project understood, you can now set it up locally.
 
-## Portfolio Link
+1. Clone the repository.
+2. Navigate to the project folder.
+3. Install dependencies:
 
-[`https://www.diegolibonati.com.ar/#/project/react-ts-library-vite-boilerplate`](https://www.diegolibonati.com.ar/#/project/react-ts-library-vite-boilerplate)
+   ```bash
+   npm install
+   ```
 
-## Testing
+4. Start the Storybook playground to explore the example component, helper, and hook:
 
-1. Navigate to the project folder
-2. Execute: `npm test`
+   ```bash
+   npm run storybook
+   ```
 
-For coverage report:
+   Storybook will be available at `http://localhost:6006`.
 
-```bash
-npm run test:coverage
-```
+5. Alternatively, start the Vite dev sandbox:
 
-## Docker
+   ```bash
+   npm run dev
+   ```
 
-Two Docker setups are included — one for local development with hot reload and one for production serving the compiled Storybook via nginx.
+   The sandbox will be available at `http://localhost:5173`.
 
-### Development
+### Pre-Commit for Development
 
-Starts the Storybook dev server inside a container with the project files mounted as a volume, so changes on the host are reflected immediately (polling-based HMR):
+The repo wires Husky and lint-staged into a `pre-commit` hook that runs automatically before every commit. Only staged files are processed, keeping the check fast. The pipeline blocks the commit if any error cannot be auto-fixed, so no malformed or unformatted code ever reaches the repository.
 
-```bash
-docker compose -f dev.docker-compose.yml up --build
-```
+**ESLint** is configured with TypeScript strict rules:
 
-Storybook will be available at `http://localhost:6006`
+- Explicit return types required
+- No `any` type allowed
+- Consistent type imports
+- No unused variables
 
-### Production
+**Prettier** handles automatic code formatting:
 
-Builds the Storybook static site and serves it with nginx using a multi-stage Docker image:
+- 2 spaces indentation
+- Semicolons required
+- Double quotes
+- Trailing commas (ES5)
 
-```bash
-docker compose -f prod.docker-compose.yml up --build
-```
+**Husky + lint-staged** run on every commit and:
 
-Storybook will be available at `http://localhost:6006`
+- Run ESLint with `--fix` on staged `.ts` and `.tsx` files
+- Format `.ts`, `.tsx`, `.css`, `.json`, and `.md` files with Prettier
+- Block commits with linting errors that cannot be auto-fixed
 
-**What happens under the hood:**
+You can also run the same checks manually:
 
-1. **Builder stage** — installs dependencies and runs `npm run build-storybook`, producing the static site in `storybook-static/`.
-2. **Runner stage** — copies the static output into an `nginx:stable-alpine` image and applies the custom nginx config.
-
-**nginx features:**
-
-- Listens on port `8080` internally (mapped to `6006` on the host).
-- Gzip compression for JS, CSS, JSON, SVG, and plain text.
-- Long-lived cache (`max-age=31536000, immutable`) for hashed static assets; no-cache for `index.html`.
-- Security headers: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`.
-- Runs as a non-root user (`appuser`).
-- Health check: `wget` hits `http://localhost:8080` every 30 seconds.
+| Command                | Description                      |
+| ---------------------- | -------------------------------- |
+| `npm run lint`         | Check for linting errors         |
+| `npm run lint:fix`     | Fix linting errors               |
+| `npm run lint:all`     | Fix linting errors (src + tests) |
+| `npm run format`       | Format code with Prettier        |
+| `npm run format:check` | Check code formatting            |
+| `npm run format:all`   | Format code (src + tests)        |
 
 ## Project Structure
+
+Once the project is running, this is the layout you will be working with.
 
 ```
 react-ts-library-vite-boilerplate/
@@ -243,6 +223,8 @@ react-ts-library-vite-boilerplate/
 | `vite.config.js`          | Vite config in library mode — dual ESM + UMD output, path aliases, `vite-plugin-dts` for type generation, and `vite-plugin-css-injected-by-js` for automatic style injection |
 
 ## Architecture & Design Patterns
+
+The structure above is shaped by the following design decisions.
 
 ### Library mode build
 
@@ -319,39 +301,34 @@ Four tsconfig files serve distinct compilation contexts, all extending a shared 
 
 Splitting configs prevents test types (`jest`, `@testing-library/jest-dom`) from leaking into the compiled library output, and prevents Vite-specific types (`vite/client`) from affecting the test environment.
 
-### Pre-commit quality gates
+## Testing
 
-Husky registers a `pre-commit` hook that runs `lint-staged` before every commit. Only staged files are processed, keeping the check fast. The pipeline for `.ts`/`.tsx` files runs ESLint with `--fix` followed by Prettier, blocking the commit if any error cannot be auto-fixed. This ensures that no malformed or unformatted code ever reaches the repository.
+The first gate before publishing is the test suite.
 
-## Code Quality Tools
+1. Navigate to the project folder.
+2. Run the full suite:
 
-### ESLint
+   ```bash
+   npm test
+   ```
 
-Configured with TypeScript strict rules:
+Additional test commands:
 
-- Explicit return types required
-- No `any` type allowed
-- Consistent type imports
-- No unused variables
+| Command                 | Description             |
+| ----------------------- | ----------------------- |
+| `npm run test:watch`    | Run tests in watch mode |
+| `npm run test:ci`       | Run tests in CI mode    |
+| `npm run test:coverage` | Run tests with coverage |
 
-### Prettier
+Coverage thresholds are enforced at 70% across branches, functions, lines, and statements. The coverage report is generated by:
 
-Automatic code formatting:
+```bash
+npm run test:coverage
+```
 
-- 2 spaces indentation
-- Semicolons required
-- Double quotes
-- Trailing commas (ES5)
+## Security Audit
 
-### Husky + lint-staged
-
-Pre-commit hooks that automatically:
-
-- Run ESLint on staged `.ts` and `.tsx` files
-- Format `.ts`, `.tsx`, `.css`, `.json` and `.md` files with Prettier
-- Block commits with linting errors
-
-## Security
+Once tests pass, audit the dependency tree before producing a build.
 
 ### npm audit
 
@@ -375,6 +352,81 @@ Use `--verbose` to see specific files and line numbers:
 npm run doctor -- --verbose
 ```
 
+## Build
+
+With tests green and the audit clean, produce the publishable artifacts.
+
+```bash
+npm run build
+```
+
+This runs Vite in library mode and `vite-plugin-dts` in a single step, producing inside `dist/`:
+
+- **ESM bundle** — for modern bundlers and `import` consumers.
+- **UMD bundle** — for legacy environments and CDN usage.
+- **Type declarations** (`.d.ts`) — with full path alias resolution.
+- **Inlined CSS** — styles are bundled into the JS via `vite-plugin-css-injected-by-js`, so consumers do not need a separate CSS import.
+
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+
+To build the Storybook static site (used by the production Docker image):
+
+```bash
+npm run build-storybook
+```
+
+## Production
+
+Production deployments serve the compiled Storybook documentation site. Before deploying, make sure you have completed the release pipeline:
+
+1. [Testing](#testing) — full suite green, coverage thresholds met.
+2. [Security Audit](#security-audit) — `npm audit` and `npm run doctor` clean.
+3. [Build](#build) — library and Storybook artifacts produced.
+
+Two Docker setups are included — one for local development with hot reload and one for production serving the compiled Storybook via nginx.
+
+### Development (Docker)
+
+Starts the Storybook dev server inside a container with the project files mounted as a volume, so changes on the host are reflected immediately (polling-based HMR):
+
+```bash
+docker compose -f dev.docker-compose.yml up --build
+```
+
+Storybook will be available at `http://localhost:6006`.
+
+### Deploy (Docker + nginx)
+
+Builds the Storybook static site and serves it with nginx using a multi-stage Docker image:
+
+```bash
+docker compose -f prod.docker-compose.yml up --build
+```
+
+Storybook will be available at `http://localhost:6006`.
+
+**What happens under the hood:**
+
+1. **Builder stage** — installs dependencies and runs `npm run build-storybook`, producing the static site in `storybook-static/`.
+2. **Runner stage** — copies the static output into an `nginx:stable-alpine` image and applies the custom nginx config.
+
+**nginx features:**
+
+- Listens on port `8080` internally (mapped to `6006` on the host).
+- Gzip compression for JS, CSS, JSON, SVG, and plain text.
+- Long-lived cache (`max-age=31536000, immutable`) for hashed static assets; no-cache for `index.html`.
+- Security headers: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`.
+- Runs as a non-root user (`appuser`).
+- Health check: `wget` hits `http://localhost:8080` every 30 seconds.
+
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[`https://www.diegolibonati.com.ar/#/project/react-ts-library-vite-boilerplate`](https://www.diegolibonati.com.ar/#/project/react-ts-library-vite-boilerplate)
