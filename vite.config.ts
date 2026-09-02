@@ -5,7 +5,7 @@ import dts from "vite-plugin-dts";
 
 import type { UserConfig } from "vite";
 
-const LIB_NAME = "react-ts-library-vite-boilerplate";
+const LIB_NAME = "react-vite-library-boilerplate";
 
 export default defineConfig({
   plugins: [

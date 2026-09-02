@@ -1,4 +1,4 @@
-# React Ts Library Vite Boilerplate
+# React Vite Library Boilerplate
 
 ## Educational Purpose
 
@@ -8,7 +8,7 @@ The main goal is to explore and demonstrate best practices, patterns, and techno
 
 ## Description
 
-**React Ts Library Vite Boilerplate** is a production-ready starting point for publishing React libraries with TypeScript and Vite. It is not a UI kit or a framework — it is the foundation you clone once and stop rebuilding from scratch every time you want to ship a reusable hook, component, or utility to npm.
+**React Vite Library Boilerplate** is a production-ready starting point for publishing React libraries with TypeScript and Vite. It is not a UI kit or a framework — it is the foundation you clone once and stop rebuilding from scratch every time you want to ship a reusable hook, component, or utility to npm.
 
 **The problem it solves:** every React + TypeScript library project starts with the same repetitive decisions — how to configure Vite in library mode, how to generate `.d.ts` type declarations without breaking path aliases, how to output both ESM and UMD formats, how to document with Storybook, and how to wire up linting and formatting so they block bad code before it reaches the registry. This boilerplate answers all of those decisions upfront, with a consistent and lightweight setup that scales without introducing unnecessary complexity.
 
@@ -151,7 +151,7 @@ You can also run the same checks manually:
 Once the project is running, this is the layout you will be working with.
 
 ```
-react-ts-library-vite-boilerplate/
+react-vite-library-boilerplate/
 ├── .storybook/
 │   ├── main.ts
 │   └── preview.ts
@@ -196,26 +196,26 @@ react-ts-library-vite-boilerplate/
 └── vite.config.ts
 ```
 
-| Path                      | Description                                                                                                                                                                                                                |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `.storybook/`             | Storybook configuration — framework setup and global decorators/preview                                                                                                                                                    |
-| `__tests__/`              | Jest test infrastructure — global setup and module mocks (CSS, static assets)                                                                                                                                              |
-| `public/`                 | Static assets available for Storybook to reference; not bundled into the library                                                                                                                                           |
-| `src/components/`         | React components — each in its own folder with styles, story, and implementation                                                                                                                                           |
-| `src/helpers/`            | Pure utility functions — each in its own folder with story and implementation                                                                                                                                              |
-| `src/hooks/`              | Custom React hooks — each in its own folder with story and implementation                                                                                                                                                  |
-| `src/styles/`             | Shared global CSS — can be imported from Storybook's preview if you need site-wide styles; not exported by the library                                                                                                     |
-| `src/types/`              | Centralized TypeScript types — split by concern (props, app types, hook types, asset declarations)                                                                                                                         |
-| `src/index.css`           | Optional root stylesheet kept for Storybook preview use; not part of the library's public API                                                                                                                              |
-| `src/index.ts`            | Library public API — re-exports every component, helper, and hook that consumers receive                                                                                                                                   |
-| `eslint.config.js`        | ESLint v9 flat config — TypeScript-aware rules for `src/`, `__tests__/`, and `.storybook/`                                                                                                                                 |
-| `jest.config.js`          | Jest configuration — ts-jest transform, jsdom environment, path aliases, coverage thresholds                                                                                                                               |
-| `tsconfig.base.json`      | Shared TypeScript compiler options inherited by all other tsconfigs                                                                                                                                                        |
-| `tsconfig.app.json`       | TypeScript config for `src/` — used by Vite and `vite-plugin-dts` for type generation                                                                                                                                      |
-| `tsconfig.json`           | Root tsconfig — references `app`, `test`, and `storybook` configs for editor support                                                                                                                                       |
-| `tsconfig.storybook.json` | TypeScript config scoped to `.storybook/` — used by ESLint parser for story config files                                                                                                                                   |
-| `tsconfig.test.json`      | TypeScript config for `src/` and `__tests__/` — used by ts-jest                                                                                                                                                            |
-| `vite.config.ts`          | Vite config in library mode — dual ESM + CJS output, path aliases, and `vite-plugin-dts` for type generation. CSS is emitted as a single `dist/react-ts-library-vite-boilerplate.css` that the consumer imports explicitly |
+| Path                      | Description                                                                                                                                                                                                             |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.storybook/`             | Storybook configuration — framework setup and global decorators/preview                                                                                                                                                 |
+| `__tests__/`              | Jest test infrastructure — global setup and module mocks (CSS, static assets)                                                                                                                                           |
+| `public/`                 | Static assets available for Storybook to reference; not bundled into the library                                                                                                                                        |
+| `src/components/`         | React components — each in its own folder with styles, story, and implementation                                                                                                                                        |
+| `src/helpers/`            | Pure utility functions — each in its own folder with story and implementation                                                                                                                                           |
+| `src/hooks/`              | Custom React hooks — each in its own folder with story and implementation                                                                                                                                               |
+| `src/styles/`             | Shared global CSS — can be imported from Storybook's preview if you need site-wide styles; not exported by the library                                                                                                  |
+| `src/types/`              | Centralized TypeScript types — split by concern (props, app types, hook types, asset declarations)                                                                                                                      |
+| `src/index.css`           | Optional root stylesheet kept for Storybook preview use; not part of the library's public API                                                                                                                           |
+| `src/index.ts`            | Library public API — re-exports every component, helper, and hook that consumers receive                                                                                                                                |
+| `eslint.config.js`        | ESLint v9 flat config — TypeScript-aware rules for `src/`, `__tests__/`, and `.storybook/`                                                                                                                              |
+| `jest.config.js`          | Jest configuration — ts-jest transform, jsdom environment, path aliases, coverage thresholds                                                                                                                            |
+| `tsconfig.base.json`      | Shared TypeScript compiler options inherited by all other tsconfigs                                                                                                                                                     |
+| `tsconfig.app.json`       | TypeScript config for `src/` — used by Vite and `vite-plugin-dts` for type generation                                                                                                                                   |
+| `tsconfig.json`           | Root tsconfig — references `app`, `test`, and `storybook` configs for editor support                                                                                                                                    |
+| `tsconfig.storybook.json` | TypeScript config scoped to `.storybook/` — used by ESLint parser for story config files                                                                                                                                |
+| `tsconfig.test.json`      | TypeScript config for `src/` and `__tests__/` — used by ts-jest                                                                                                                                                         |
+| `vite.config.ts`          | Vite config in library mode — dual ESM + CJS output, path aliases, and `vite-plugin-dts` for type generation. CSS is emitted as a single `dist/react-vite-library-boilerplate.css` that the consumer imports explicitly |
 
 ## Architecture & Design Patterns
 
@@ -278,7 +278,7 @@ Component styles use CSS Modules instead of plain CSS. Vite generates hashed cla
 } /* modifier */
 ```
 
-CSS is **not** auto-injected. The build emits a single `dist/react-ts-library-vite-boilerplate.css` containing the styles of every exported component, and the consumer imports it explicitly once in their app entry:
+CSS is **not** auto-injected. The build emits a single `dist/react-vite-library-boilerplate.css` containing the styles of every exported component, and the consumer imports it explicitly once in their app entry:
 
 ```ts
 import { Button } from "your-library";
@@ -366,7 +366,7 @@ This runs Vite in library mode and `vite-plugin-dts` in a single step, producing
 - **ESM bundle** — for modern bundlers and `import` consumers.
 - **CJS bundle** — for Node `require()` and SSR consumers.
 - **Type declarations** (`.d.ts`) — with full path alias resolution.
-- **Stylesheet** — `react-ts-library-vite-boilerplate.css`, exposed via the `"./styles.css"` subpath in `exports`. The consumer is responsible for importing it once in their app entry.
+- **Stylesheet** — `react-vite-library-boilerplate.css`, exposed via the `"./styles.css"` subpath in `exports`. The consumer is responsible for importing it once in their app entry.
 
 `prepack` and `prepublishOnly` are wired so that `npm pack` always rebuilds `dist/` fresh, and `npm publish` additionally runs `lint` and `test:ci` before producing the publishable tarball — stale or broken builds cannot reach the registry.
 
@@ -405,7 +405,7 @@ Jobs run sequentially via `needs:`, so a failure short-circuits the rest of the 
 
 1. **`lint-and-audit`** — `npm run lint` (ESLint), `npm run type-check` (`tsc -p tsconfig.app.json --noEmit`), and `npm audit --omit=dev --audit-level=high` to fail only on high-severity vulnerabilities reaching production dependencies.
 2. **`testing`** — `npm run test:ci` (Jest with `--ci` and `jsdom`). Coverage thresholds are enforced at 70% across branches, functions, lines, and statements.
-3. **`build`** — smoke test that `vite build` produces a clean `dist/` (ESM + CJS bundles, `.d.ts` declarations, and the standalone `react-ts-library-vite-boilerplate.css`).
+3. **`build`** — smoke test that `vite build` produces a clean `dist/` (ESM + CJS bundles, `.d.ts` declarations, and the standalone `react-vite-library-boilerplate.css`).
 4. **`build-docker`** — builds both `Dockerfile.development` and `Dockerfile.production` images so container regressions are caught before merging.
 
 ### Release job (only on push to `main`)
@@ -449,7 +449,7 @@ To skip **everything** including validation, use GitHub's standard `[skip ci]` m
 | Output                                      | Location                                                                                |
 | ------------------------------------------- | --------------------------------------------------------------------------------------- |
 | Validation logs (lint, tests, audit, build) | **Actions** tab on GitHub                                                               |
-| Published package per version               | npm registry (`npm view react-ts-library-vite-boilerplate`)                             |
+| Published package per version               | npm registry (`npm view react-vite-library-boilerplate`)                                |
 | Version history & release notes             | [`CHANGELOG.md`](CHANGELOG.md) + **Releases** page                                      |
 | Git tags per version                        | `git tag` / **Tags** page on GitHub                                                     |
 | Docker images                               | Ephemeral, inside the runner (CI only builds them as a smoke test; they are not pushed) |
@@ -533,4 +533,4 @@ Storybook will be available at `http://localhost:6006`.
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/react-ts-library-vite-boilerplate`](https://www.diegolibonati.com.ar/#/project/react-ts-library-vite-boilerplate)
+[`https://www.diegolibonati.com.ar/#/project/react-vite-library-boilerplate`](https://www.diegolibonati.com.ar/#/project/react-vite-library-boilerplate)
